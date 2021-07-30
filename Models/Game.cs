@@ -21,6 +21,7 @@ namespace MPGC_API.Models
         public decimal Rating { get; set; }
         public decimal Playtime { get; set; }
         public string Description { get; set; }
+        public string UrlMusicTheme { get; set; }
         public int Idgenre { get; set; }
 
         public virtual Genre IdgenreNavigation { get; set; }

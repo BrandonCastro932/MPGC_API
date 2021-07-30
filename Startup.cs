@@ -46,6 +46,10 @@ namespace MPGC_API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MPGC_API v1"));
             }
+            else
+            {
+                app.UseHttpsRedirection();
+            }
 
             app.UseRouting();
 

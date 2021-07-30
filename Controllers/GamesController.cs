@@ -27,6 +27,13 @@ namespace MPGC_API.Controllers
         public async Task<ActionResult<IEnumerable<Game>>> GetGames()
         {
             return await _context.Games.ToListAsync();
+
+            /* Para paginar
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            var pagedData = await _context.Games.Skip((validFilter.PageNumber - 1) * validFilter.PageSize).Take(validFilter.PageSize).ToListAsync();
+            var totalRecords = await _context.Games.CountAsync();
+            return Ok(new PagedResponse<List<Game>>(pagedData, validFilter.PageNumber, validFilter.PageSize));
+             */
         }
 
         // GET: api/Games/5

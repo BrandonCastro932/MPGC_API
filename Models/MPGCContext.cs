@@ -76,6 +76,11 @@ namespace MPGC_API.Models
 
                 entity.Property(e => e.Released).HasColumnType("date");
 
+                entity.Property(e => e.UrlMusicTheme)
+                    .IsRequired()
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
                 entity.HasOne(d => d.IdgenreNavigation)
                     .WithMany(p => p.Games)
                     .HasForeignKey(d => d.Idgenre)
@@ -90,9 +95,7 @@ namespace MPGC_API.Models
                 entity.HasIndex(e => e.IdgameMovie, "IX_GameMovies")
                     .IsUnique();
 
-                entity.Property(e => e.IdgameMovie)
-                    .ValueGeneratedNever()
-                    .HasColumnName("IDGameMovie");
+                entity.Property(e => e.IdgameMovie).HasColumnName("IDGameMovie");
 
                 entity.Property(e => e.Idgame).HasColumnName("IDGame");
 
