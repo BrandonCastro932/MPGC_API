@@ -37,8 +37,10 @@ namespace MPGC_API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MPGC_API", Version = "v1" });
             });
             //Esto se agregó para que trajera todos los datos relacionados, si no da error
-            services.AddControllers().AddJsonOptions(x =>
-            x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+            services.AddControllersWithViews()
+            .AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

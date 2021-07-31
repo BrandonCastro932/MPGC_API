@@ -41,7 +41,12 @@ namespace MPGC_API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Game>> GetGame(int id)
         {
-            var game = await _context.Games.FindAsync(id);
+            var game = await _context.Games.SingleAsync(g => g.Idgame == id);
+
+            _context.Entry(game).Collection(g => g.GameMovies).Load();
+            _context.Entry(game).Collection(g => g.GameScreenshots).Load();
+            _context.Entry(game).Collection(g => g.GamePlatforms).Query().Include(d => d.PlatformsIdplatformNavigation).Load();
+            _context.Entry(game).Reference(g => g.IdgenreNavigation).Load();
 
             if (game == null)
             {
