@@ -27,7 +27,7 @@ namespace MPGC_API.Controllers
         //Añadir esto en caso de paginar [FromQuery] PaginationFilter filter
         public async Task<ActionResult<IEnumerable<Game>>> GetGames()
         {
-            return await _context.Games.ToListAsync();
+            return await _context.Games.Include(p => p.IdgenreNavigation).ToListAsync();
 
             /* Para paginar
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
