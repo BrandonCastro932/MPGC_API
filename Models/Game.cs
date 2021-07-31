@@ -9,6 +9,7 @@ namespace MPGC_API.Models
     {
         public Game()
         {
+            GameMovies = new HashSet<GameMovie>();
             GamePlatforms = new HashSet<GamePlatform>();
             GameScreenshots = new HashSet<GameScreenshot>();
             UserGames = new HashSet<UserGame>();
@@ -25,6 +26,7 @@ namespace MPGC_API.Models
         public int Idgenre { get; set; }
 
         public virtual Genre IdgenreNavigation { get; set; }
+        public virtual ICollection<GameMovie> GameMovies { get; set; }
         public virtual ICollection<GamePlatform> GamePlatforms { get; set; }
         public virtual ICollection<GameScreenshot> GameScreenshots { get; set; }
         public virtual ICollection<UserGame> UserGames { get; set; }

@@ -29,7 +29,7 @@ namespace MPGC_API
         {
 
             services.AddControllers();
-            var cnn = "SERVER=DESKTOP-S6QVT61;DATABASE=MPGC;Trusted_Connection=True;";
+            var cnn = "Data Source=tcp:mpcg.database.windows.net,1433;Initial Catalog=MPGC;User Id=Brandon932@mpcg;Password=Zxcv2001.";
             services.AddDbContext<MPGCContext>(options => options.UseSqlServer(cnn));
             services.AddSwaggerGen(c =>
             {

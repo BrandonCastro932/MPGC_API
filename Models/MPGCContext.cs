@@ -104,6 +104,12 @@ namespace MPGC_API.Models
                     .HasMaxLength(1000)
                     .IsUnicode(false)
                     .HasColumnName("URLembed");
+
+                entity.HasOne(d => d.IdgameNavigation)
+                    .WithMany(p => p.GameMovies)
+                    .HasForeignKey(d => d.Idgame)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_GameMovies_Game");
             });
 
             modelBuilder.Entity<GamePlatform>(entity =>

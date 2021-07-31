@@ -10,5 +10,7 @@ namespace MPGC_API.Models
         public int IdgameMovie { get; set; }
         public int Idgame { get; set; }
         public string Urlembed { get; set; }
+
+        public virtual Game IdgameNavigation { get; set; }
     }
 }
