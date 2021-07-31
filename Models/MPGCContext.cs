@@ -191,6 +191,10 @@ namespace MPGC_API.Models
                     .ValueGeneratedNever()
                     .HasColumnName("IDGenre");
 
+                entity.Property(e => e.GenreColor)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.NameGenre)
                     .IsRequired()
                     .HasMaxLength(500)

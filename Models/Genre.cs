@@ -14,6 +14,7 @@ namespace MPGC_API.Models
 
         public int Idgenre { get; set; }
         public string NameGenre { get; set; }
+        public string GenreColor { get; set; }
 
         public virtual ICollection<Game> Games { get; set; }
     }
