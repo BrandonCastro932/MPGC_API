@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MPGC_API.Filter;
+using MPGC_API.Helpers;
 using MPGC_API.Models;
+using MPGC_API.Services;
 using MyStuffAPI_BrandonCastro.Attributes;
 
 namespace MPGC_API.Controllers
@@ -16,24 +19,34 @@ namespace MPGC_API.Controllers
     public class GamesController : ControllerBase
     {
         private readonly MPGCContext _context;
+        private readonly IUriService uriService;
 
-        public GamesController(MPGCContext context)
+        public GamesController(MPGCContext context, IUriService uriService)
         {
             _context = context;
+            this.uriService = uriService;
         }
 
         // GET: api/Games
         [HttpGet]
         //Añadir esto en caso de paginar [FromQuery] PaginationFilter filter
-        public async Task<ActionResult<IEnumerable<Game>>> GetGames()
+        public async Task<ActionResult<IEnumerable<Game>>> GetGames([FromQuery] PaginationFilter filter)
         {
-            return await _context.Games.Include(p => p.IdgenreNavigation).ToListAsync();
+           // return await _context.Games.Include(p => p.IdgenreNavigation).ToListAsync();
+
+            var route = Request.Path.Value;
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            var pagedData = await _context.Games
+                .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+                .Take(validFilter.PageSize)
+                .Include(p => p.IdgenreNavigation)
+                .ToListAsync();
+            var totalRecords = await _context.Games.CountAsync();
+            var pagedReponse = PaginationHelper.CreatePagedReponse<Game>(pagedData, validFilter, totalRecords, uriService, route);
+            return Ok(pagedReponse);
 
             /* Para paginar
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
-            var pagedData = await _context.Games.Skip((validFilter.PageNumber - 1) * validFilter.PageSize).Take(validFilter.PageSize).ToListAsync();
-            var totalRecords = await _context.Games.CountAsync();
-            return Ok(new PagedResponse<List<Game>>(pagedData, validFilter.PageNumber, validFilter.PageSize));
+           
              */
         }
 

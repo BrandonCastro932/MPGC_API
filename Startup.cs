@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MPGC_API.Models;
+using MPGC_API.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +38,16 @@ namespace MPGC_API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MPGC_API", Version = "v1" });
             });
+
+            services.AddHttpContextAccessor();
+            services.AddSingleton<IUriService>(o =>
+            {
+                var accessor = o.GetRequiredService<IHttpContextAccessor>();
+                var request = accessor.HttpContext.Request;
+                var uri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
+                return new UriService(uri);
+            });
+
             //Esto se agregó para que trajera todos los datos relacionados, si no da error
             services.AddControllersWithViews()
             .AddNewtonsoftJson(options =>

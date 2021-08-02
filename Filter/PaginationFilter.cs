@@ -12,12 +12,13 @@ namespace MPGC_API.Filter
         public PaginationFilter()
         {
             this.PageNumber = 1;
-            this.PageSize = 10;
+            this.PageSize = 15;
         }
         public PaginationFilter(int pageNumber, int pageSize)
         {
             this.PageNumber = pageNumber < 1 ? 1 : pageNumber;
-            this.PageSize = pageSize > 10 ? 10 : pageSize;
+            //Máximo de pageSize de 15
+            this.PageSize = pageSize > 15 ? 15 : pageSize;
         }
     }
 }
