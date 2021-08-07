@@ -78,6 +78,7 @@ namespace MPGC_API.Controllers
         public async Task<ActionResult<UserStatus>> PostUserStatus(UserStatus userStatus)
         {
             _context.UserStatuses.Add(userStatus);
+
             try
             {
                 await _context.SaveChangesAsync();

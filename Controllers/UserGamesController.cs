@@ -77,12 +77,21 @@ namespace MPGC_API.Controllers
         [HttpPost]
         public async Task<ActionResult<UserGame>> PostUserGame(UserGame userGame)
         {
-            _context.UserGames.Add(userGame);
+            var usergame = await _context.UserGames.SingleOrDefaultAsync(g => g.Idgame == userGame.Idgame && g.Iduser == userGame.Iduser);
             try
             {
-                await _context.SaveChangesAsync();
+                if (usergame != null)
+                {
+                    _context.UserGames.Remove(usergame);
+                    _context.UserGames.Add(userGame);
+                    await _context.SaveChangesAsync();
+                }
+                
+                    _context.UserGames.Add(userGame);
+                    await _context.SaveChangesAsync();
+               
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException ex)
             {
                 if (UserGameExists(userGame.IduserGame))
                 {

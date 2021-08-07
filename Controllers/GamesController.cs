@@ -30,10 +30,13 @@ namespace MPGC_API.Controllers
         // GET: api/Games
         [HttpGet]
         //Añadir esto en caso de paginar [FromQuery] PaginationFilter filter
-        public async Task<ActionResult<IEnumerable<Game>>> GetGames([FromQuery] PaginationFilter filter)
+        public async Task<ActionResult<IEnumerable<Game>>> GetGames()
         {
-           // return await _context.Games.Include(p => p.IdgenreNavigation).ToListAsync();
+            return await _context.Games.Include(p => p.IdgenreNavigation).ToListAsync();
 
+
+
+            /* Para paginar
             var route = Request.Path.Value;
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
             var pagedData = await _context.Games
@@ -44,9 +47,6 @@ namespace MPGC_API.Controllers
             var totalRecords = await _context.Games.CountAsync();
             var pagedReponse = PaginationHelper.CreatePagedReponse<Game>(pagedData, validFilter, totalRecords, uriService, route);
             return Ok(pagedReponse);
-
-            /* Para paginar
-           
              */
         }
 

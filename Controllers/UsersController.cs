@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MPGC_API.Models;
+using MyStuffAPI_BrandonCastro.Attributes;
 
 namespace MPGC_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKey]
     public class UsersController : ControllerBase
     {
         private readonly MPGCContext _context;
@@ -31,7 +33,36 @@ namespace MPGC_API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.SingleAsync(g => g.Iduser == id);
+            
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
+        }
+
+        [HttpGet("UserGames/{id}")]
+        public async Task<ICollection<UserGame>> UserGames(int id)
+        {
+            var user = await _context.Users.SingleAsync(g => g.Iduser == id);
+            _context.Entry(user).Collection(u => u.UserGames).Query().Include(u => u.IdgameNavigation).ThenInclude(u => u.IdgenreNavigation).Load();
+
+            var userGames = user.UserGames;
+            if (user.UserGames == null)
+            {
+                return (ICollection<UserGame>)NoContent();
+            }
+
+            return user.UserGames;
+        }
+
+        // GET: api/Users/5
+        [HttpGet("Login")]
+        public async Task<ActionResult<User>> Login(string username, string password)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(g => g.Username == username && g.Password == password);
 
             if (user == null)
             {
