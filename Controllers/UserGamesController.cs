@@ -86,9 +86,13 @@ namespace MPGC_API.Controllers
                     _context.UserGames.Add(userGame);
                     await _context.SaveChangesAsync();
                 }
-                
+                else
+                {
                     _context.UserGames.Add(userGame);
                     await _context.SaveChangesAsync();
+                }
+                
+                    
                
             }
             catch (DbUpdateException ex)
@@ -107,19 +111,20 @@ namespace MPGC_API.Controllers
         }
 
         // DELETE: api/UserGames/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUserGame(int id)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUserGame(UserGame userGame)
         {
-            var userGame = await _context.UserGames.FindAsync(id);
-            if (userGame == null)
+            var usergame = await _context.UserGames.SingleOrDefaultAsync(g => g.Idgame == userGame.Idgame && g.Iduser == userGame.Iduser);
+            if (usergame != null)
+            {
+                _context.UserGames.Remove(usergame);
+                await _context.SaveChangesAsync();
+            }
+            else
             {
                 return NotFound();
             }
-
-            _context.UserGames.Remove(userGame);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok();
         }
 
         private bool UserGameExists(int id)

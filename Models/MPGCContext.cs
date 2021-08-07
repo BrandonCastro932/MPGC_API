@@ -285,9 +285,7 @@ namespace MPGC_API.Models
 
                 entity.ToTable("UserGame");
 
-                entity.Property(e => e.IduserGame)
-                    .ValueGeneratedNever()
-                    .HasColumnName("IDUserGame");
+                entity.Property(e => e.IduserGame).HasColumnName("IDUserGame");
 
                 entity.Property(e => e.Idgame).HasColumnName("IDGame");
 
