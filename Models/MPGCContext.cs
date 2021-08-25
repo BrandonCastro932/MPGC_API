@@ -241,9 +241,7 @@ namespace MPGC_API.Models
                 entity.HasIndex(e => e.Email, "UQ__User__A9D10534A147EA74")
                     .IsUnique();
 
-                entity.Property(e => e.Iduser)
-                    .ValueGeneratedNever()
-                    .HasColumnName("IDUser");
+                entity.Property(e => e.Iduser).HasColumnName("IDUser");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
