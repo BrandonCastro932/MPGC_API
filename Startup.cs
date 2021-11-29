@@ -27,12 +27,11 @@ namespace MPGC_API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
             services.AddControllers();
-            var cnn = "Data Source=tcp:mpcg.database.windows.net,1433;Initial Catalog=MPGC;User Id=Brandon932@mpcg;Password=Zxcv2001.";
+            var cnn = "Data Source=.;Initial Catalog=MPGC;Integrated Security=True";
             services.AddDbContext<MPGCContext>(options => options.UseSqlServer(cnn));
             services.AddSwaggerGen(c =>
             {
@@ -48,13 +47,12 @@ namespace MPGC_API
                 return new UriService(uri);
             });
 
-            //Esto se agregó para que trajera todos los datos relacionados, si no da error
+            //Manejo del loop con Newtonsoft JSON
             services.AddControllersWithViews()
             .AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

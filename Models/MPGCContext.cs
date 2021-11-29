@@ -44,7 +44,7 @@ namespace MPGC_API.Models
             modelBuilder.Entity<Game>(entity =>
             {
                 entity.HasKey(e => e.Idgame)
-                    .HasName("PK__Game__D0B765D568439989");
+                    .HasName("PK__Game__D0B765D51C0B4BDD");
 
                 entity.ToTable("Game");
 
@@ -115,7 +115,7 @@ namespace MPGC_API.Models
             modelBuilder.Entity<GamePlatform>(entity =>
             {
                 entity.HasKey(e => e.IdgamePlatform)
-                    .HasName("PK__GamePlat__21E0B0DDD4DC1FBA");
+                    .HasName("PK__GamePlat__21E0B0DDDC2E3194");
 
                 entity.ToTable("GamePlatform");
 
@@ -141,7 +141,7 @@ namespace MPGC_API.Models
             modelBuilder.Entity<GameScreenshot>(entity =>
             {
                 entity.HasKey(e => e.Idscreenshot)
-                    .HasName("PK__GameScre__58A43F3002F03EB9");
+                    .HasName("PK__GameScre__58A43F3049229DF5");
 
                 entity.Property(e => e.Idscreenshot).HasColumnName("IDScreenshot");
 
@@ -163,7 +163,7 @@ namespace MPGC_API.Models
             modelBuilder.Entity<GameState>(entity =>
             {
                 entity.HasKey(e => e.IdgameState)
-                    .HasName("PK__GameStat__9525A553EBC7C3C0");
+                    .HasName("PK__GameStat__9525A55394443A9D");
 
                 entity.ToTable("GameState");
 
@@ -180,11 +180,11 @@ namespace MPGC_API.Models
             modelBuilder.Entity<Genre>(entity =>
             {
                 entity.HasKey(e => e.Idgenre)
-                    .HasName("PK__Genre__23FDA2F0D27245A2");
+                    .HasName("PK__Genre__23FDA2F02C465D5D");
 
                 entity.ToTable("Genre");
 
-                entity.HasIndex(e => e.NameGenre, "UQ__Genre__ED75A170CBB74C8D")
+                entity.HasIndex(e => e.NameGenre, "UQ__Genre__ED75A1701639D44A")
                     .IsUnique();
 
                 entity.Property(e => e.Idgenre)
@@ -192,21 +192,26 @@ namespace MPGC_API.Models
                     .HasColumnName("IDGenre");
 
                 entity.Property(e => e.GenreColor)
-                    .HasMaxLength(500)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IconUrl)
+                    .HasMaxLength(1000)
                     .IsUnicode(false);
 
                 entity.Property(e => e.NameGenre)
                     .IsRequired()
-                    .HasMaxLength(500)
+                    .HasMaxLength(255)
                     .IsUnicode(false);
             });
 
             modelBuilder.Entity<Platform>(entity =>
             {
                 entity.HasKey(e => e.Idplatform)
-                    .HasName("PK__Platform__5C439843FC4D30E5");
+                    .HasName("PK__Platform__5C439843BE1F1CC2");
 
-                entity.HasIndex(e => e.Platform1, "UQ__Platform__130CCEA24A888C08")
+                entity.HasIndex(e => e.Platform1, "UQ__Platform__130CCEA2866DBC02")
                     .IsUnique();
 
                 entity.Property(e => e.Idplatform)
@@ -228,17 +233,17 @@ namespace MPGC_API.Models
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.Iduser)
-                    .HasName("PK__User__EAE6D9DFD403405F");
+                    .HasName("PK__User__EAE6D9DF5199FA43");
 
                 entity.ToTable("User");
 
-                entity.HasIndex(e => e.Username, "UQ__User__536C85E4815AAEEA")
+                entity.HasIndex(e => e.Username, "UQ__User__536C85E4D194979E")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Phone, "UQ__User__5C7E359EB93204C9")
+                entity.HasIndex(e => e.Phone, "UQ__User__5C7E359EE240BEAD")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Email, "UQ__User__A9D10534A147EA74")
+                entity.HasIndex(e => e.Email, "UQ__User__A9D10534B75AE991")
                     .IsUnique();
 
                 entity.Property(e => e.Iduser).HasColumnName("IDUser");
@@ -251,6 +256,7 @@ namespace MPGC_API.Models
                 entity.Property(e => e.IduserStatus).HasColumnName("IDUserStatus");
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
@@ -279,7 +285,7 @@ namespace MPGC_API.Models
             modelBuilder.Entity<UserGame>(entity =>
             {
                 entity.HasKey(e => e.IduserGame)
-                    .HasName("PK__UserGame__37C637DF5531CABF");
+                    .HasName("PK__UserGame__37C637DF143B8883");
 
                 entity.ToTable("UserGame");
 
@@ -313,11 +319,11 @@ namespace MPGC_API.Models
             modelBuilder.Entity<UserStatus>(entity =>
             {
                 entity.HasKey(e => e.IduserStatus)
-                    .HasName("PK__UserStat__BDCCE0F9AF94F177");
+                    .HasName("PK__UserStat__BDCCE0F93A06C2C7");
 
                 entity.ToTable("UserStatus");
 
-                entity.HasIndex(e => e.Status, "UQ__UserStat__3A15923FB51DE870")
+                entity.HasIndex(e => e.Status, "UQ__UserStat__3A15923F5DD75137")
                     .IsUnique();
 
                 entity.Property(e => e.IduserStatus)

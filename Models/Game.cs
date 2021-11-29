@@ -30,6 +30,7 @@ namespace MPGC_API.Models
         public virtual ICollection<GameMovie> GameMovies { get; set; }
         public virtual ICollection<GamePlatform> GamePlatforms { get; set; }
         public virtual ICollection<GameScreenshot> GameScreenshots { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<UserGame> UserGames { get; set; }
     }
