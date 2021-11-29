@@ -18,6 +18,7 @@ namespace MPGC_API.Models
         public string GenreColor { get; set; }
         public string IconUrl { get; set; }
 
+        //Se ignora para evitar exceso de datos en el json
         [JsonIgnore]
         public virtual ICollection<Game> Games { get; set; }
     }
