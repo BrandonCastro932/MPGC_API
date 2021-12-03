@@ -42,7 +42,6 @@ namespace MPGC_API.Controllers
         }
 
         // PUT: api/UserStatus/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUserStatus(int id, UserStatus userStatus)
         {
@@ -73,7 +72,6 @@ namespace MPGC_API.Controllers
         }
 
         // POST: api/UserStatus
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<UserStatus>> PostUserStatus(UserStatus userStatus)
         {

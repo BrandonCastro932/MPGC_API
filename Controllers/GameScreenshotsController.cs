@@ -42,7 +42,6 @@ namespace MPGC_API.Controllers
         }
 
         // PUT: api/GameScreenshots/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGameScreenshot(int id, GameScreenshot gameScreenshot)
         {
@@ -73,7 +72,6 @@ namespace MPGC_API.Controllers
         }
 
         // POST: api/GameScreenshots
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<GameScreenshot>> PostGameScreenshot(GameScreenshot gameScreenshot)
         {

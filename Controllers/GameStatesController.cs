@@ -42,7 +42,6 @@ namespace MPGC_API.Controllers
         }
 
         // PUT: api/GameStates/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGameState(int id, GameState gameState)
         {
@@ -73,7 +72,6 @@ namespace MPGC_API.Controllers
         }
 
         // POST: api/GameStates
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<GameState>> PostGameState(GameState gameState)
         {

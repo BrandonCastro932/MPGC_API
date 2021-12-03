@@ -13,9 +13,6 @@ namespace MyStuffAPI_BrandonCastro.Attributes
 
     public sealed class ApiKeyAttribute : Attribute, IAsyncActionFilter
     {
-        /* Acá creamos un atributo que luego usaremos como decoracion en los controllers para
-         agregar una capa de seguridad a la hora de consumir el recurso (ruta) */
-
         private const string NombreApiKey = "ApiKey";
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
