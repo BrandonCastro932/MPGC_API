@@ -35,7 +35,6 @@ namespace MPGC_API.Controllers
         public async Task<ActionResult<IEnumerable<Game>>> GetGames()
         {
             return await _context.Games.Include(p => p.IdgenreNavigation).ToListAsync();
-            Console.WriteLine("");
             /* Para paginar
             var route = Request.Path.Value;
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
